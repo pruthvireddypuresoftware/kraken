@@ -23,8 +23,29 @@ jobs:
     - name: Integration Tests
       script:
         - make integration
+    - name: Unit Tests
+      arch: arm64-graviton2
+      group: edge
+      virt: vm
+      dist: focal
+      script:
+        - make unit-test
+    - name: Integration Tests
+      arch: arm64-graviton2
+      group: edge
+      virt: vm
+      dist: focal
+      script:
+        - make integration
     - stage: Compliance
       name: Fossa Check
+      script:
+        - "fossa --option allow-unresolved:true"
+    - name: Fossa Check
+      arch: arm64-graviton2
+      group: edge
+      virt: vm
+      dist: focal
       script:
         - "fossa --option allow-unresolved:true"
 
